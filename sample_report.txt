@@ -1,0 +1,6 @@
+Patient: Max Mustermann
+DOB: 14.05.1982
+ID: PAT-994821
+Notes: Patient presents with elevated BP and mild HTN.
+Lab results show HbA1c at 6.8% and normal WBC count.
+Recommend follow-up ECG.
