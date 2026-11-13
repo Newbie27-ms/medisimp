@@ -1,29 +1,50 @@
 # medisimp
 
-**Privacy-first medical text redaction and plain-language glossary CLI for the Agentic OS.**
+**100% offline medical text redaction & plain-language clinical glossary â€” built from scratch in Rust.**
 
-`medisimp` is a fast, zero-dependency command-line tool written in Rust. It prepares raw clinical notes and lab reports for AI agents or patients by automatically redacting personal identifiable information (PII) and appending plain-language explanations for medical abbreviations.
+`medisimp` strips sensitive patient identifiers (`[REDACTED]`) and translates 40+ medical abbreviations into plain Englishâ€”available in your browser, as a local offline Web UI, or as a fast CLI tool.
 
-## Why medisimp?
-Raw medical notes contain sensitive patient identifiers and dense clinical jargon (`HbA1c`, `WBC`, `HTN`, `ECG`). Pasting them directly into AI agents leaks privacy and wastes tokens. `medisimp` sanitizes and structures medical text locally in milliseconds before any data leaves your machine.
+- **Try Live in Browser:** https://newbie27-ms.github.io/medisimp/
+- **Download Latest Release:** https://github.com/Newbie27-ms/medisimp/releases/latest
 
-## Installation
-Download the pre-compiled static binary from the [Releases](https://github.com/Newbie27-ms/medisimp/releases) page:
-- Linux ARM64 (`aarch64-unknown-linux-musl`)
-- Linux x86_64 (`x86_64-unknown-linux-musl`)
+---
 
-Or build from source:
+## 1. Download & Install
 
-    cargo build --release
+### macOS â€” Apple Silicon (M1 / M2 / M3 / M4)
+1. Download **`aarch64-apple-darwin.tar.gz`** from [Releases](https://github.com/Newbie27-ms/medisimp/releases/latest).
+2. Extract and clear the macOS Gatekeeper flag once:
+   ```bash
+   cd ~/Downloads
+   tar -xzf aarch64-apple-darwin.tar.gz
+   xattr -d com.apple.quarantine ./medisimp
+   ```
 
-## Usage
+### macOS â€” Intel
+1. Download **`x86_64-apple-darwin.tar.gz`** from [Releases](https://github.com/Newbie27-ms/medisimp/releases/latest).
+2. Extract and clear the macOS Gatekeeper flag once:
+   ```bash
+   cd ~/Downloads
+   tar -xzf x86_64-apple-darwin.tar.gz
+   xattr -d com.apple.quarantine ./medisimp
+   ```
 
-    # Redact sensitive info and generate plain-language glossary
-    medisimp sample_report.txt
-
-    # Keep patient identifiers (skip redaction)
-    medisimp sample_report.txt --no-redact
-
-## Business & Pricing Model (Open-Core)
-- **Community Edition (Free / Open-Source):** Core CLI binary, local PII redaction, and standard medical abbreviation glossary for students, patients, and developers.
-- **Pro / Clinical Team License (â‚¬19/month per seat):** Extended ICD-10 / LOINC dictionaries, custom regex redaction rules for hospital EHR exports, and HIPAA/GDPR audit logging.
+### Linux (`x86_64` & `aarch64`)
+1. Download **`x86_64-unknown-linux-musl.tar.gz`** (or `aarch64-unknown-linux-musl.tar.gz`) from [Releases](https://github.com/Newbie27-ms/medisimp/releases/latest).
+2. Extract:
+   ```bash
+   tar -xzf x86_64-unknown-linux-musl.tar.gz
+   ```B‚ˆÈÈÈZ[œ›ÛHÛİ\˜ÙH
+[HÔÈÚ]\İ
+B˜˜\Ú™Ú]ÛÛ™HÎ‹ËÙÚ]X‹˜ÛÛKÓ™]ØšYLË[\ËÛYY\Ú[\™Ú]	‰ˆÙYY\Ú[\˜Ø\™ÛÈ[œİ[K\]‚˜‚‹KKB‚ˆÈÈ‹ˆİÈÈ\ÙH
+[[Ù\ÊB‚ˆÈÈÈ[ÙHNˆÙ™›[™HØØ[ÙXˆRH
+]™\Y^H\Ù\œÊB“][˜ÚHZ[Z[ˆØØ[Ù\™\ˆ
+™\›È[\›™]™\]Z\™Y
+H[™Ü[ˆ
+Š˜‹ËÌLËŒŒŒN
+Šˆ[ˆ[İ\ˆœ›İÜÙ\‚˜˜\Ú‹‹ÛYY\Ú[\K]ZB˜‚ˆÈÈÈ[ÙHˆÛÛ[X[™S[™H	ˆ\[™È
+]™[Ü\œÈ	ˆRHYÙ[ÊB˜˜\ÚˆÈ›ØÙ\ÜÈHYYXØ[™\Üš[B‹‹ÛYY\Ú[\™\Ü‚ˆÈ^ÜØ[š]^™YX\šÙİÛˆÈHš[B‹‹ÛYY\Ú[\™\Ü[ÈÛX[—Ü™\Ü›Y‚ˆÈ\H\™XİHœ›ÛHXXÓÔÈÛ\›Ø\™
+ÛÜH^Ú]ÛY
+ĞÈš\œİ
+Bœœ\İH‹ÛYY\Ú[\‚ˆÈÙY\\œÛÛ˜[]Z[Èš\ÚX›H›Üˆš]˜]HÙ™›[™H™XY[™Â‹‹ÛYY\Ú[\™\ÜK[›Ë\™YXİ˜‚ˆÈÈÈ[ÙHÎˆ™\›ËR[œİ[œ›İÜÙ\ˆ[[Â“Ü[ˆ
+ŠšÎ‹ËÛ™]ØšYLË[\Ë™Ú]X‹š[ËÛYY\Ú[\ÊŠˆÈ\İYY\Ú[\\™XİH[ˆ[İ\ˆœ›İÜÙ\ˆÚ]İ]İÛ›ØY[™È[][™
