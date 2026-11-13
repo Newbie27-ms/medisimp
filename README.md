@@ -1,50 +1,64 @@
 # medisimp
 
-**100% offline medical text redaction & plain-language clinical glossary â€” built from scratch in Rust.**
+**Privacy-first medical text redaction and plain-language clinical glossary - built from scratch in Rust.**
 
-`medisimp` strips sensitive patient identifiers (`[REDACTED]`) and translates 40+ medical abbreviations into plain Englishâ€”available in your browser, as a local offline Web UI, or as a fast CLI tool.
+`medisimp` is a self-contained, zero-dependency software application designed for Health Informatics workflows, AI agent pipelines, and everyday patients. It runs **100% offline** on your deviceâ€”stripping sensitive personal identifiable information (PII) locally and translating 40+ dense medical abbreviations into clear, plain-English explanations.
 
-- **Try Live in Browser:** https://newbie27-ms.github.io/medisimp/
-- **Download Latest Release:** https://github.com/Newbie27-ms/medisimp/releases/latest
+- **Live Product Website & Interactive Browser Sandbox:** https://newbie27-ms.github.io/medisimp/
+- **Download Latest Releases (macOS & Linux):** https://github.com/Newbie27-ms/medisimp/releases/latest
+- **Source Code Repository:** https://github.com/Newbie27-ms/medisimp
 
 ---
 
-## 1. Download & Install
+## Table of Contents
+1. [The Problem & Solution](#1-the-problem--solution)
+2. [Key Features](#2-key-features)
+3. [System Architecture](#3-system-architecture)
+4. [Download & Installation (macOS & Linux)](#4-download--installation-macos--linux)
+5. [How to Use (All 3 Modes)](#5-how-to-use-all-3-modes)
+6. [Example Input & Output](#6-example-input--output)
+7. [Target Groups & Business Model](#7-target-groups--business-model)
 
-### macOS â€” Apple Silicon (M1 / M2 / M3 / M4)
-1. Download **`aarch64-apple-darwin.tar.gz`** from [Releases](https://github.com/Newbie27-ms/medisimp/releases/latest).
-2. Extract and clear the macOS Gatekeeper flag once:
-   ```bash
-   cd ~/Downloads
-   tar -xzf aarch64-apple-darwin.tar.gz
-   xattr -d com.apple.quarantine ./medisimp
-   ```
+---
 
-### macOS â€” Intel
-1. Download **`x86_64-apple-darwin.tar.gz`** from [Releases](https://github.com/Newbie27-ms/medisimp/releases/latest).
-2. Extract and clear the macOS Gatekeeper flag once:
-   ```bash
-   cd ~/Downloads
-   tar -xzf x86_64-apple-darwin.tar.gz
-   xattr -d com.apple.quarantine ./medisimp
-   ```
+## 1. The Problem & Solution
 
-### Linux (`x86_64` & `aarch64`)
-1. Download **`x86_64-unknown-linux-musl.tar.gz`** (or `aarch64-unknown-linux-musl.tar.gz`) from [Releases](https://github.com/Newbie27-ms/medisimp/releases/latest).
-2. Extract:
-   ```bash
-   tar -xzf x86_64-unknown-linux-musl.tar.gz
-   ```B‚ˆÈÈÈZ[œ›ÛHÛİ\˜ÙH
-[HÔÈÚ]\İ
-B˜˜\Ú™Ú]ÛÛ™HÎ‹ËÙÚ]X‹˜ÛÛKÓ™]ØšYLË[\ËÛYY\Ú[\™Ú]	‰ˆÙYY\Ú[\˜Ø\™ÛÈ[œİ[K\]‚˜‚‹KKB‚ˆÈÈ‹ˆİÈÈ\ÙH
-[[Ù\ÊB‚ˆÈÈÈ[ÙHNˆÙ™›[™HØØ[ÙXˆRH
-]™\Y^H\Ù\œÊB“][˜ÚHZ[Z[ˆØØ[Ù\™\ˆ
-™\›È[\›™]™\]Z\™Y
-H[™Ü[ˆ
-Š˜‹ËÌLËŒŒŒN
-Šˆ[ˆ[İ\ˆœ›İÜÙ\‚˜˜\Ú‹‹ÛYY\Ú[\K]ZB˜‚ˆÈÈÈ[ÙHˆÛÛ[X[™S[™H	ˆ\[™È
-]™[Ü\œÈ	ˆRHYÙ[ÊB˜˜\ÚˆÈ›ØÙ\ÜÈHYYXØ[™\Üš[B‹‹ÛYY\Ú[\™\Ü‚ˆÈ^ÜØ[š]^™YX\šÙİÛˆÈHš[B‹‹ÛYY\Ú[\™\Ü[ÈÛX[—Ü™\Ü›Y‚ˆÈ\H\™XİHœ›ÛHXXÓÔÈÛ\›Ø\™
-ÛÜH^Ú]ÛY
-ĞÈš\œİ
-Bœœ\İH‹ÛYY\Ú[\‚ˆÈÙY\\œÛÛ˜[]Z[Èš\ÚX›H›Üˆš]˜]HÙ™›[™H™XY[™Â‹‹ÛYY\Ú[\™\ÜK[›Ë\™YXİ˜‚ˆÈÈÈ[ÙHÎˆ™\›ËR[œİ[œ›İÜÙ\ˆ[[Â“Ü[ˆ
-ŠšÎ‹ËÛ™]ØšYLË[\Ë™Ú]X‹š[ËÛYY\Ú[\ÊŠˆÈ\İYY\Ú[\\™XİH[ˆ[İ\ˆœ›İÜÙ\ˆÚ]İ]İÛ›ØY[™È[][™
+### The Problem
+Clinical lab results, hospital discharge summaries, and doctor notes are difficult for patients to read because they are filled with specialized abbreviations (`HbA1c`, `eGFR`, `COPD`, `BID`, `PRN`). At the same time, pasting raw medical reports into cloud-based AI tools exposes sensitive personal data (full names, dates of birth, patient IDs, addresses, phone numbers, and email addresses).
+
+### The Solution
+`medisimp` acts as a **local privacy firewall and clinical translator**:
+- **Before sharing or using AI:** It automatically detects and replaces personal identifiers with `[REDACTED]` locally on your machine.
+- **For immediate understanding:** It scans the report for 40+ common clinical terms and appends a structured, plain-language glossary in clean Markdown.
+- **Zero setup overhead:** Instead of heavy Python environments, Docker containers, or external API keys, `medisimp` compiles into a single standalone binary using only the Rust standard library.
+
+---
+
+## 2. Key Features
+
+- **100% Offline Local Execution:** Zero network requests, zero telemetry, and zero external cloud dependencies. Patient data never leaves your computer.
+- **Two-Layer PII Redaction:**
+  - **Header Redaction:** Automatically redacts sensitive record lines (`Patient:`, `Name:`, `DOB:`, `Birth:`, `ID:`, `MRN:`, `Address:`, `Phone:`, `Insurance:`).
+  - **Inline Pattern Redaction:** Automatically detects and masks inline email addresses (`[REDACTED-EMAIL]`), calendar dates (`[REDACTED-DATE]`), phone numbers, and patient IDs (`[REDACTED-ID]`).
+- **40+ Clinical Abbreviation Dictionary:** Covers vital signs (`BP`, `HR`, `SpO2`, `BMI`), diagnoses (`HTN`, `DM`, `T2DM`, `COPD`, `MI`, `CVA`, `SOB`), lab panels (`CBC`, `WBC`, `RBC`, `HGB`, `PLT`, `MCV`, `HbA1c`, `LDL`, `HDL`, `TSH`, `ALT`, `AST`, `eGFR`, `CRP`), diagnostics (`ECG`, `EKG`, `CXR`, `MRI`, `CT`), and prescriptions (`PO`, `IV`, `BID`, `TID`, `QID`, `PRN`).
+- **Three Flexible Modes:**
+  1. **Built-in Local Web UI (`--ui`)** served offline on `http://127.0.0.1:8080`.
+  2. **Unix Command-Line & Piping Tool (`stdin` / file export)** for developers and AI agents.
+  3. **Zero-Install Browser Sandbox** hosted on GitHub Pages.
+
+---
+
+## 3. System Architecture
+
+`medisimp` is intentionally engineered from scratch with **zero third-party crate dependencies** (`Cargo.toml` contains no external packages) so every line of logic is transparent, auditable, and easy to maintain:
+
+```text
+medisimp/
+â”œâ”€â”€ Cargo.toml                  # Package metadata (zero external dependencies)
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ lib.rs                  # Core text-processing engine: PII redaction & 40+ term glossary
+â”‚   â””â”€â”€ main.rs                 # CLI parser, stdin/file I/O, and std::net::TcpListener local web server
+â”œâ”€â”€ docs/
+â”‚   â””â”€â”€ index.html              # GitHub Pages product landing page & live browser sandbox
+â””â”€â”€ .github/workflows/
+    â””â”€â”€ main.yml                # Automated CI/CD cross-compilation for macOS & Linux releases
