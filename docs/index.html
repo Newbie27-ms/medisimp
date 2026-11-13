@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>medisimp - Privacy-First Medical CLI for AI Agents</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; max-width: 820px; margin: 0 auto; padding: 40px 20px; color: #1f2937; background: #f9fafb; }
+    header { text-align: center; padding: 40px 0; border-bottom: 1px solid #e5e7eb; }
+    h1 { font-size: 2.5rem; margin-bottom: 10px; color: #111827; }
+    .tagline { font-size: 1.2rem; color: #4b5563; margin-bottom: 25px; }
+    .btn { display: inline-block; background: #2563eb; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; margin: 5px; }
+    .btn-secondary { background: #1f2937; }
+    section { margin: 40px 0; }
+    pre { background: #111827; color: #f3f4f6; padding: 18px; border-radius: 8px; overflow-x: auto; font-size: 0.9rem; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .card { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #e5e7eb; }
+    footer { text-align: center; margin-top: 60px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>medisimp</h1>
+    <p class="tagline">Sanitize patient data & decode medical jargon in milliseconds—built for the Agentic OS.</p>
+    <a class="btn" href="https://github.com/Newbie27-ms/medisimp/releases/latest/download/aarch64-unknown-linux-musl.tar.gz">Download Linux aarch64 Binary</a>
+    <a class="btn btn-secondary" href="https://github.com/Newbie27-ms/medisimp/releases/latest/download/x86_64-unknown-linux-musl.tar.gz">Download Linux x86_64 Binary</a>
+  </header>
+
+  <section>
+    <h2>The Problem & Solution</h2>
+    <p><strong>Target Group:</strong> Health informatics students, clinical data analysts, and privacy-conscious developers using local or cloud AI agents.</p>
+    <p>Medical lab reports contain sensitive personal identifiers and dense clinical abbreviations. <code>medisimp</code> is a single, self-contained Rust binary that strips patient PII locally and outputs clean, token-efficient Markdown with plain-English medical definitions.</p>
+  </section>
+
+  <section>
+    <h2>Terminal Demo</h2>
+    <pre>$ medisimp sample_report.txt
+
+## Cleaned Medical Report
+Patient: [REDACTED]
+DOB: [REDACTED]
+ID: [REDACTED]
+Notes: Patient presents with elevated BP and mild HTN.
+
+## Plain-Language Glossary
+- **BP**: Blood Pressure (force of blood against artery walls)
+- **HTN**: Hypertension (high blood pressure)</pre>
+  </section>
+
+  <section>
+    <h2>Business Model & Go-To-Market</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Community Tier - Free</h3>
+        <p>Open-source static CLI binary, local PII redaction, and core lab glossary. Distributed via GitHub Releases, Rust crates, and Linux developer communities.</p>
+      </div>
+      <div class="card">
+        <h3>Clinical Pro - 19 EUR / month</h3>
+        <p>Expanded ICD-10 & LOINC medical dictionaries, custom hospital HL7/FHIR redaction rulesets, and compliance audit logs for healthcare startups.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built from scratch in Rust by Mohammed Sala Uddin | <a href="https://github.com/Newbie27-ms/medisimp">View Source on GitHub</a></p>
+  </footer>
+</body>
+</html>
