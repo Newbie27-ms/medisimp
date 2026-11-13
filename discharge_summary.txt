@@ -1,0 +1,8 @@
+Patient: Anna Schmidt
+DOB: 22.08.1975
+Contact: anna.schmidt@example.de | +491701234567
+Admission Date: 03.11.2026 | ID: PAT-883920
+Hx: T2DM and mild HTN.
+Discharge Dx: Acute SOB ruled out for MI via CXR and ECG.
+Labs: HbA1c 7.4%, LDL 145 mg/dL, eGFR 78, CRP slightly elevated, CBC/WBC normal.
+Rx: Metformin 500mg PO BID; Lisinopril 10mg PO daily; Ibuprofen PRN.
