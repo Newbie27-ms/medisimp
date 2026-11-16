@@ -12,12 +12,14 @@
 
 ## Table of Contents
 1. [The Problem & Solution](#1-the-problem--solution)
-2. [Key Features](#2-key-features)
-3. [System Architecture](#3-system-architecture)
-4. [Download & Installation (macOS & Linux)](#4-download--installation-macos--linux)
-5. [How to Use (All 3 Modes)](#5-how-to-use-all-3-modes)
-6. [Example Input & Output](#6-example-input--output)
-7. [Target Groups & Business Model](#7-target-groups--business-model)
+2. [Key Users & Workflows](#2-key-users--workflows)
+3. [Key Features](#3-key-features)
+4. [Tools & Tech Stack](#4-tools--tech-stack)
+5. [System Architecture](#5-system-architecture)
+6. [Download & Installation (macOS & Linux)](#6-download--installation-macos--linux)
+7. [How to Use (All 3 Modes)](#7-how-to-use-all-3-modes)
+8. [Example Input & Output](#8-example-input--output)
+9. [Target Groups & Business Model](#9-target-groups--business-model)
 
 ---
 
@@ -29,12 +31,26 @@ Clinical lab results, hospital discharge summaries, and doctor notes are difficu
 ### The Solution
 `medisimp` acts as a **local privacy firewall and clinical translator**:
 - **Before sharing or using AI:** It automatically detects and replaces personal identifiers with `[REDACTED]` locally on your machine.
-- **For immediate understanding:** It scans the report for 40+ common clinical terms and appends a structured, plain-language glossary in clean Markdown.
+- **For immediate understanding:** It scans copied or OCR-extracted report text for 40+ common clinical terms and appends a structured, plain-language glossary in clean Markdown.
 - **Zero setup overhead:** Instead of heavy Python environments, Docker containers, or external API keys, `medisimp` compiles into a single standalone binary using only the Rust standard library.
 
 ---
 
-## 2. Key Features
+## 2. Key Users & Workflows
+
+`medisimp` is built as a focused, offline prototype serving two primary user groups who work with copied or OCR-extracted medical text:
+
+1. **Patients & Caregivers (Everyday Offline Use)**
+   - **Workflow:** Copy text from a lab report, discharge summary, or image OCR and paste it into the **100% offline local Web UI** (`medisimp --ui` on `http://127.0.0.1:8080`).
+   - **Goal:** Decode cryptic lab and prescription abbreviations (`HbA1c`, `eGFR`, `BID`, `PRN`) into plain English immediately without private health data ever leaving their device.
+
+2. **Developers, Health Informatics Students & AI Power Users ("Agentic OS" Workflow)**
+   - **Workflow:** Pipe clipboard or file text through `medisimp` in the terminal (`pbpaste | medisimp` or `medisimp report.txt -o clean_report.md`).
+   - **Goal:** Strip out sensitive personal identifiers (`[REDACTED]`) and translate clinical jargon into clean Markdown *before* passing medical notes into cloud or local AI agents.
+
+---
+
+## 3. Key Features
 
 - **100% Offline Local Execution:** Zero network requests, zero telemetry, and zero external cloud dependencies. Patient data never leaves your computer.
 - **Two-Layer PII Redaction:**
@@ -48,9 +64,20 @@ Clinical lab results, hospital discharge summaries, and doctor notes are difficu
 
 ---
 
-## 3. System Architecture
+## 4. Tools & Tech Stack
 
-`medisimp` is intentionally engineered from scratch with **zero third-party crate dependencies** (`Cargo.toml` contains no external packages) so every line of logic is transparent, auditable, and easy to maintain:
+- **Core Language:** Rust (100% standard library — `std::fs`, `std::io`, `std::net::TcpListener` — with **zero** third-party crate dependencies in `Cargo.toml`)
+- **Cross-Compilation & Static Linking:**
+  - Linux (`aarch64-unknown-linux-musl` & `x86_64-unknown-linux-musl`) statically linked via `cargo-zigbuild` and `musl` libc
+  - macOS (`aarch64-apple-darwin` & `x86_64-apple-darwin`) compiled natively via `cargo`
+- **CI/CD & Release Automation:** GitHub Actions (`.github/workflows/main.yml`) for automated multi-architecture binary builds on every release tag
+- **Frontend & Web Hosting:** Embedded zero-dependency HTML/CSS/JS local Web UI (`--ui`) and static GitHub Pages product website & browser sandbox (`docs/index.html`)
+
+---
+
+## 5. System Architecture
+
+`medisimp` is intentionally engineered from scratch with **zero third-party crate dependencies** so every line of logic is transparent, auditable, and easy to maintain:
 
 ```text
 medisimp/
